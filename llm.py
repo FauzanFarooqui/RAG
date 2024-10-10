@@ -3,6 +3,7 @@ from langchain import HuggingFaceHub
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 import os
 os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
+import pypdf
 from langchain_community.document_loaders import PyPDFLoader
 
 file_path = "NRUP_content.pdf"
