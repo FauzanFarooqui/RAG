@@ -1,6 +1,6 @@
 from llm import llm
 #from graph import graph
-from langchain_core.runnables.history import RunnableWithMessageHistory
+# from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.runnables import RunnableParallel
 # Create a movie chat chain
@@ -8,16 +8,16 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain.schema import StrOutputParser
 from operator import itemgetter
 
-from uuid import uuid4
-from langchain_community.chat_message_histories import ChatMessageHistory
+# from uuid import uuid4
+# from langchain_community.chat_message_histories import ChatMessageHistory
 
-SESSION_ID = str(uuid4())
-print(f"Session ID: {SESSION_ID}")
+# SESSION_ID = str(uuid4())
+# print(f"Session ID: {SESSION_ID}")
 
-memory = ChatMessageHistory() #ephemeral memory for the current session
+# memory = ChatMessageHistory() #ephemeral memory for the current session
 
-def get_memory(session_id):
-    return memory
+# def get_memory(session_id):
+#     return memory
 
 chat_prompt = ChatPromptTemplate.from_messages(
     [
@@ -109,9 +109,7 @@ system_prompt = (
     Use the following pieces of retrieved context to answer the question:
     \n\n Context:
     {context}
-    \n
-    Use the following chat history to refer back to the conversation:
-    {chat_history}"""
+    \n"""
 )
 
 prompt = ChatPromptTemplate.from_messages(
@@ -123,17 +121,17 @@ prompt = ChatPromptTemplate.from_messages(
 
 
 question_answer_chain = create_stuff_documents_chain(llm, prompt)
-rag_chain = create_retrieval_chain(retriever, RunnablePassthrough.assign(chat_history = itemgetter("chat_history")) | question_answer_chain)
+rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
-chat_mem = RunnableWithMessageHistory(
-    rag_chain,
-    get_memory,
-    input_messages_key="input",
-    history_messages_key="chat_history",
-)
+# chat_mem = RunnableWithMessageHistory(
+#     rag_chain,
+#     get_memory,
+#     input_messages_key="input",
+#     history_messages_key="chat_history",
+# )
 
 # Create a handler to call the agent
-from utils import get_session_id
+# from utils import get_session_id
 
 
 def generate_response(user_input):
@@ -142,8 +140,9 @@ def generate_response(user_input):
     and returns a response to be rendered in the UI
     """
 
-    response = chat_mem.invoke(
+    response = rag_chain.invoke(
         {"input": user_input},
-        {"configurable": {"session_id": SESSION_ID}},)
+        # {"configurable": {"session_id": SESSION_ID}},
+    )
 
     return response['answer']
