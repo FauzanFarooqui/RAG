@@ -7,7 +7,7 @@ st.set_page_config("Ebert", page_icon=":movie_camera:")
 # Set up Session State
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Hi, I'm a 5G Chatbot for ETSI's NRUP Specifications! I am using DeepSeek's R1 LLM from HuggingFace. How can I help you?"},
+        {"role": "assistant", "content": "Hi, I'm a 5G Chatbot for ETSI's NRUP Specifications! I am using LLaMa-3.2's 3B-Instruct LLM from HuggingFace. How can I help you? Please note that we are using free usage of HF's Inference Providers. Thus, only very small models (<7B) can be loaded. Moreover, the providers may have an outage, so if the chat throws an error, please note that it is from the inference provider rather than the agent setup."},
     ]
 
 # Submit handler
