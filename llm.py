@@ -12,7 +12,7 @@ loader = PyPDFLoader(file_path)
 docs = loader.load()
 
 # Create the LLM
-llm=HuggingFaceHub(repo_id="tiiuae/falcon-7b-instruct", model_kwargs={"temperature":0.01})
+llm=HuggingFaceHub(repo_id="deepseek-ai/DeepSeek-R1", model_kwargs={"temperature":0.01})
 
 # Create the Embedding model
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
