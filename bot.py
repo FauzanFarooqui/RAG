@@ -7,7 +7,7 @@ st.set_page_config("Ebert", page_icon=":movie_camera:")
 # Set up Session State
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Hi, I'm a 5G Chatbot for ETSI's NRUP Specifications!  How can I help you?"},
+        {"role": "assistant", "content": "Hi, I'm a 5G Chatbot for ETSI's NRUP Specifications! I am using DeepSeek's R1 LLM from HuggingFace. How can I help you?"},
     ]
 
 # Submit handler
